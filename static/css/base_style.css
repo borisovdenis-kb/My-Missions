@@ -1,0 +1,64 @@
+@import url(https://fonts.googleapis.com/css?family=Bahiana);
+@import url(https://fonts.googleapis.com/css?family=Paytone+One);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,700);
+
+.main_div {
+    display: flex;
+    flex-direction: row;
+}
+
+.cover {
+    display: none;
+    position: absolute;
+    background-color: #000000;
+    opacity: 0.5;
+    z-index: 999;
+    top: 0;
+    right: 0;
+}
+
+.left_side {
+    /*background-color: #8f35db;*/
+}
+
+.right_side {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    /*background-color: #486dff;*/
+    z-index: 1000;
+    /*top: 0;*/
+    /*height: 500px;*/
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*border-left: solid 5px #cfc6d0;*/
+    /*opacity: 0;*/
+    width: 78px;
+    z-index: 3000;
+}
+
+.slider:hover{
+    cursor: pointer;
+}
+
+.arrow {
+    width: 80px;
+    height: 80px;
+    background-image: url(../images/arrow_black.png);
+    /*background-color: #8f35db;*/
+}
+
+/*.arrow:hover{*/
+    /*backgroundImage: url(../images/arrow_white.png);*/
+/*}*/
+
+/*.rotate180 {*/
+    /*transition: transform 1s;*/
+    /*transform: rotate(180deg);*/
+/*}*/
+

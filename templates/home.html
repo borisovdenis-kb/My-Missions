@@ -1,0 +1,67 @@
+{% extends "base_tmp.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Home{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href={% static "css/home_style.css"%}>
+{% endblock %}
+
+{% block header %}
+    <div class="header">
+        <div class="logo">my missions</div>
+        <div class="user_wrap">
+            <div class="user">
+                <div id="username">{{ username }}</div>
+                <div id="avatar"
+                     style="background-image: url({% static "avatars/tst.jpg" %})">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if cat_empty %}
+        <div class="hello_wrap">
+            <div class="hello">Начните добавлять миссии ---></div>
+        </div>
+    {% else %}
+        {% for mission in missions %}
+            <div class="mission_wrap_wrap">
+                <div class="mission_wrap">
+                    <div class="mission"
+                         style="background-color: {{ mission.1.background_color }};
+                                color: {{ mission.1.color }};">
+                        {{ mission.0.name }}
+                    </div>
+                    <div class="ok_button"></div>
+                    <div class="del_button"></div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block fun %}
+    <div class="cat_wrap_wrap">
+        <div class="cat_wrap">
+            {% for cat in cats %}
+                {% if cat.1 %}
+                    <div class="cat" style="outline: solid 4px #ffffff;">
+                        <a href="\{{ cat.0.user_id.id }}\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
+                    </div>
+                {% else %}
+                    <div class="cat">
+                        <a href="\{{ cat.0.user_id.id }}\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts_top %}
+    <script type="text/javascript" src={% static "scripts/home_script.js" %}></script>
+{% endblock %}

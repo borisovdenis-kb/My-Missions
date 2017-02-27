@@ -1,0 +1,44 @@
+body {
+    background-color: #ffffff;
+}
+
+.frontEdge {
+    margin-top: 120px;
+    margin-left: 200px;
+}
+
+#username_li {
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#password_li {
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#password_input {
+    background-color: #000000;
+    outline: none;
+    border: none;
+    width: 520px;
+    height: 100px;
+    font-size: 150px;
+    color: #46e1db;
+}
+
+#username_input {
+    background-color: #000000;
+    outline: none;
+    border: none;
+    width: 520px;
+    height: 100px;
+    font-size: 150px;
+    color: #46e1db;
+}
+
+#password_input:focus {
+  border-color: red;
+}

@@ -1,0 +1,42 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href={% static "css/base_style.css"%}>
+    <!--Добавление в дочерние шаблоны новых стилей-->
+    {% block styles %}{%  endblock %}
+
+    <script type="text/javascript" src={% static "librarys/jquery-3.1.1.js" %}></script>
+    <script type="text/javascript" src={% static "librarys/jquery.easing.1.3.js" %}></script>
+    <script type="text/javascript" src={% static "librarys/jquery.transform2d.js" %}></script>
+    <!--Добавление в наследующие шаблоны новых скриптов-->
+    {% block scripts_top %}{% endblock %}
+</head>
+
+
+<body>
+    {% block header %}{% endblock %}
+
+    <div class="main_div">
+        <div class="left_side">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="right_side">
+            <div class="slider">
+                <div class="arrow"></div>
+            </div>
+            {% block fun %}{% endblock %}
+        </div>
+        <div class="cover"></div>
+    </div>
+
+</body>
+<!--Добавление в дочерние шаблоны новых скриптов-->
+{% block scripts_bottom %}{% endblock %}
+</html>
