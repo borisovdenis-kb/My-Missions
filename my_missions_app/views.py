@@ -7,6 +7,8 @@ from  django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from my_missions import config
 from my_missions_app.models import *
+from my_missions_app.utils import get_random_color_set
+import json
 
 
 # Create your views here.
@@ -58,6 +60,7 @@ def root_view(request):
     else:
         return HttpResponseRedirect("/login")
 
+
 def missions_view(request, cat_id):
     """
         Функция вывода задач из соответствующей категории
@@ -84,7 +87,7 @@ def missions_view(request, cat_id):
         # задаем случайный набор цветов для каждой задачи
         missions_list = []
         for mission in missions:
-            color_set = choice(list(config.colors.values()))
+            color_set = get_random_color_set()
             missions_list.append((mission, color_set))
 
         context['cats'] = cat_list
@@ -105,15 +108,31 @@ def get_missions_ajax(request, cat_id):
         категории, id которой передан как аргумент
     """
     user = CustomUser.objects.get(username=request.user.username)
+    missions = Missions.objects.filter(cat_id_id=cat_id, user_id_id=user.id)
+
+    missions_list = []
+    for mission in missions:
+        color_set = get_random_color_set()
+
+        missions_list.append({
+            'name': str(mission.name),
+            'comment': str(mission.comment),
+            'until_datetime': str(mission.until_datetime),
+            'remind_datetime': str(mission.remind_datetime),
+            'bg_color': color_set['bg_color'],
+            'color': color_set['color']
+        })
 
     response = HttpResponse()
     response['Content-Type'] = 'text/javascript'
-    response.write(
-        serializers.serialize(
-            'json',
-            Missions.objects.filter(cat_id_id=cat_id, user_id_id=user.id),
-            fields=('name', 'comment', 'until_datetime', 'remind_datetime')
-        )
-    )
+    response.write(json.dumps(missions_list))
+
+    # response.write(
+    #     serializers.serialize(
+    #         'json',
+    #         Missions.objects.filter(cat_id_id=cat_id, user_id_id=user.id),
+    #         fields=('name', 'comment', 'until_datetime', 'remind_datetime')
+    #     )
+    # )
 
     return response

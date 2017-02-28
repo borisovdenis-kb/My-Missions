@@ -5,9 +5,35 @@
 $(document).ready( function() {
     setHalfsSizes();
 
-    $('.cat').click(function() {
-        var a = $(this).find('a');
-        $(a).trigger('click');
+    // почему-то не работает display: none;
+    $('.cat_info').fadeOut();
+
+    // $('.cat').click(function() {
+    //     var a = $(this).find('a');
+    //     $(a).trigger('click');
+    // });
+
+    $('.cat').click( function() {
+        left_side = $('.left_side');
+        $.getJSON('/get_missions' + $(this).find('a').attr('href'),
+            function (data) {
+                left_side.empty();
+
+                jQuery.each(data, function () {
+                    left_side.prepend(
+                        '<div class="mission_wrap_wrap">' +
+                        '<div class="mission_wrap">' +
+                        '<div class="mission" ' +
+                        'style="background-color:' + this.bg_color + '; color:' + this.color + ';">' +
+                        this.name +
+                        '</div>' +
+                        '<div class="ok_button"></div>' +
+                        '<div class="del_button"></div>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                });
+            });
     });
 
     $(".slider").hover(

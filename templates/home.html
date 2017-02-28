@@ -32,7 +32,7 @@
             <div class="mission_wrap_wrap">
                 <div class="mission_wrap">
                     <div class="mission"
-                         style="background-color: {{ mission.1.background_color }};
+                         style="background-color: {{ mission.1.bg_color }};
                                 color: {{ mission.1.color }};">
                         {{ mission.0.name }}
                     </div>
@@ -49,11 +49,13 @@
         <div class="cat_wrap">
             {% for cat in cats %}
                 {% if cat.1 %}
-                    <div class="cat" style="outline: solid 4px #ffffff;">
+                    <div class="cat" style="outline: solid 4px #ffffff;" >
+                        <div class="cat_info">{{ cat.0.cat_id }}</div>
                         <a href="\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
                     </div>
                 {% else %}
                     <div class="cat">
+                        <div class="cat_info">{{ cat.0.cat_id }}</div>
                         <a href="\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
                     </div>
                 {% endif %}
