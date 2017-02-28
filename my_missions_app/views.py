@@ -104,7 +104,7 @@ def missions_view(request, cat_id):
 
 def get_missions_ajax(request, cat_id):
     """
-        Функция по ajax запросы выдает миссии, содержащиеся в
+        Функция по ajax запросу выдает миссии, содержащиеся в
         категории, id которой передан как аргумент
     """
     user = CustomUser.objects.get(username=request.user.username)

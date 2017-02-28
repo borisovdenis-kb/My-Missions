@@ -14,7 +14,17 @@ $(document).ready( function() {
     // });
 
     $('.cat').click( function() {
-        left_side = $('.left_side');
+
+        // Есть косячек!
+        // Смена обводки происходит с запозданием!
+        jQuery.each($('.cat'), function() {
+            $(this).css({'outline': 'none'});
+        });
+
+        $(this).css({'outline': 'solid 4px #ffffff'});
+
+        var left_side = $('.left_side');
+
         $.getJSON('/get_missions' + $(this).find('a').attr('href'),
             function (data) {
                 left_side.empty();
