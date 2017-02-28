@@ -50,11 +50,11 @@
             {% for cat in cats %}
                 {% if cat.1 %}
                     <div class="cat" style="outline: solid 4px #ffffff;">
-                        <a href="\{{ cat.0.user_id.id }}\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
+                        <a href="\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
                     </div>
                 {% else %}
                     <div class="cat">
-                        <a href="\{{ cat.0.user_id.id }}\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
+                        <a href="\{{ cat.0.cat_id }}">{{ cat.0.title }}</a>
                     </div>
                 {% endif %}
             {% endfor %}

@@ -1,11 +1,13 @@
 from random import choice
 from django.contrib import auth
+from django.core import serializers
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from  django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from my_missions import config
 from my_missions_app.models import *
+
 
 # Create your views here.
 
@@ -56,30 +58,28 @@ def root_view(request):
     else:
         return HttpResponseRedirect("/login")
 
-
-def tasks_view(request, user_id, cat_id):
+def missions_view(request, cat_id):
     """
         Функция вывода задач из соответствующей категории
         Категория определяется из ссылки
         url: /id_user/cat_id
         Причем будет отображаться последняя открытая категория
     """
-    print('tasks_view')
+    cat_id = int(cat_id)
+
     if request.user.is_authenticated():
         user = CustomUser.objects.get(username=request.user.username)
-        cats = Category.objects.filter(user_id_id=user_id)
-        missions = Missions.objects.filter(cat_id_id=cat_id)
+        cats = Category.objects.filter(user_id_id=user.id)
+        missions = Missions.objects.filter(cat_id_id=cat_id, user_id_id=user.id)
         context = {'username': user.username}
 
         # помечаем последнюю открытую категорию
         cat_list = []
         for cat in cats:
-            if cat.cat_id == int(cat_id):
+            if cat.cat_id == cat_id:
                 cat_list.append((cat, True))
             else:
                 cat_list.append((cat, False))
-
-        print(cat_list)
 
         # задаем случайный набор цветов для каждой задачи
         missions_list = []
@@ -90,6 +90,30 @@ def tasks_view(request, user_id, cat_id):
         context['cats'] = cat_list
         context['missions'] = missions_list
 
+        # сохраняем последнюю открытую категорию
+        user.last_cat = '/%s' % cat_id
+        user.save()
+
         return render_to_response('home.html', context)
     else:
         return HttpResponseRedirect("/login")
+
+
+def get_missions_ajax(request, cat_id):
+    """
+        Функция по ajax запросы выдает миссии, содержащиеся в
+        категории, id которой передан как аргумент
+    """
+    user = CustomUser.objects.get(username=request.user.username)
+
+    response = HttpResponse()
+    response['Content-Type'] = 'text/javascript'
+    response.write(
+        serializers.serialize(
+            'json',
+            Missions.objects.filter(cat_id_id=cat_id, user_id_id=user.id),
+            fields=('name', 'comment', 'until_datetime', 'remind_datetime')
+        )
+    )
+
+    return response

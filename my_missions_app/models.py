@@ -49,6 +49,7 @@ class Missions(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
     cat_id = models.ForeignKey(Category, models.DO_NOTHING)
+    user_id = models.ForeignKey(CustomUser, models.DO_NOTHING)
     until_datetime = models.DateTimeField()
     remind_datetime = models.DateTimeField()
 

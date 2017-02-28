@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/', views.login_view),
     url(r'^$', views.root_view),
-    url(r'^(\d+)/(\d+)', views.tasks_view)
+    url(r'^(\d+)', views.missions_view),
+    url(r'^get_missions/(\d+)', views.get_missions_ajax)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
